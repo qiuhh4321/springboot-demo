@@ -1,15 +1,12 @@
 package com.example.demo.controller;
 
+import com.example.demo.entity.Upwd;
 import com.example.demo.entity.User;
 import com.example.demo.service.UserService;
 import com.example.demo.utils.JSONResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -63,7 +60,6 @@ public class TestController {
         }
     }
     @GetMapping("/login")
-    @Cacheable(value="thisredis", key="'users_'+#id")
     public User findUser(Integer id) {
         User user = userService.login(id);
         System.out.println("************");
@@ -79,9 +75,9 @@ public class TestController {
     }
 
 
-    @GetMapping("/page")
-    public JSONResult test4(Integer page){
-        System.out.println(page);
+    @RequestMapping("/page")
+    public JSONResult test4(Integer page, @RequestBody Upwd upwd){
+        System.out.println(upwd);
         if(page==null)
             page=1;
         return JSONResult.ok(userService.queryUser(page));

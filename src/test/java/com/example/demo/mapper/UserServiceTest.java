@@ -12,7 +12,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -44,12 +43,11 @@ public class UserServiceTest {
 
     @Test
     public void redis(){
-       redisTemplate.opsForValue().set("java1803","测试数据",2, TimeUnit.HOURS);
+        System.out.println(redisTemplate.opsForValue().get("thisredis:\\xAC\\xED\\x00\\x05t\\x00\\x07users_1"));
     }
 
     @Test
     public void limitLogin(){
-
         String username="lijun";
         Map<String,Object> map=userService.loginUserLock(username);
         if((boolean)map.get("flag")){

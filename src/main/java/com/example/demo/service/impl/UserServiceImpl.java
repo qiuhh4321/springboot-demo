@@ -7,6 +7,7 @@ import com.example.demo.utils.PageResult;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.data.redis.serializer.RedisSerializer;
@@ -30,7 +31,7 @@ public class UserServiceImpl implements UserService{
     public List<User> getUser() {
         RedisSerializer redisSerializer=new StringRedisSerializer();
         objectRedisTemplate.setKeySerializer(redisSerializer);
-        List<User> users= ( List<User>)objectRedisTemplate.opsForValue().get("allUser");
+        List<User> users= (List<User>)objectRedisTemplate.opsForValue().get("allUser");
 
 //        双重检测索
         if(null==users) {
@@ -51,7 +52,9 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    @Cacheable(value = "user_details", key = "#id", unless="#result == null")
     public User login(Integer id) {
+        System.out.println("有请求");
         return userMapper.login(id);
     }
 
