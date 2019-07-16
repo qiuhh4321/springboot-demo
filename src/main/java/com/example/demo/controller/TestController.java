@@ -6,11 +6,12 @@ import com.example.demo.service.UserService;
 import com.example.demo.utils.JSONResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 @RestController
 @RequestMapping("/user")
@@ -18,6 +19,8 @@ public class TestController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private RedisTemplate redisTemplate;
 
 
     @PostMapping("/test")
@@ -33,19 +36,21 @@ public class TestController {
     }
 
 
-    @GetMapping("/getuser")
-    public JSONResult test() throws Exception{
-        System.out.println("******");
-        List<User> users=userService.getUser();
-        System.out.println(users.toString());
-        return JSONResult.ok(users);
-    }
+//    @GetMapping("/getuser")
+//    public JSONResult test() throws Exception{
+//        System.out.println("******");
+//        List<User> users=userService.getUser();
+//        System.out.println(users.toString());
+//        return JSONResult.ok(users);
+//    }
 
     @RequestMapping("/getuser2")
     public JSONResult test2() throws Exception{
-        List<User> users=userService.getUser();
-        System.out.println(users.toString());
-        return JSONResult.ok(users);
+//        List<User> users=userService.getUser();
+//        System.out.println(users.toString());
+//        return JSONResult.ok(users);
+        redisTemplate.opsForValue().set("test","sadasdsa",10, TimeUnit.SECONDS);
+        return JSONResult.errorMsg("123");
     }
     @RequestMapping("/thread")
     public void test3(){
@@ -60,7 +65,7 @@ public class TestController {
         }
     }
     @GetMapping("/login")
-    public User findUser(Integer id) {
+    public User findUser(int id) {
         User user = userService.login(id);
         System.out.println("************");
         return user;
@@ -81,11 +86,6 @@ public class TestController {
         if(page==null)
             page=1;
         return JSONResult.ok(userService.queryUser(page));
-    }
-
-    @GetMapping("/loginlimit")
-    public void loginlimit(){
-
     }
 
 

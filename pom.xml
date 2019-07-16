@@ -35,12 +35,12 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<!--&lt;!&ndash;spring-boot-devtools 热启动依赖包&ndash;&gt;-->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<optional>true</optional>
-		</dependency>
+		<!--&lt;!&ndash;&lt;!&ndash;spring-boot-devtools 热启动依赖包&ndash;&gt;&ndash;&gt;-->
+		<!--<dependency>-->
+			<!--<groupId>org.springframework.boot</groupId>-->
+			<!--<artifactId>spring-boot-devtools</artifactId>-->
+			<!--<optional>true</optional>-->
+		<!--</dependency>-->
 		<!--mysql-->
 		<dependency>
 			<groupId>mysql</groupId>
