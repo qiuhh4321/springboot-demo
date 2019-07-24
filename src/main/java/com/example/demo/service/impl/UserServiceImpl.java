@@ -58,6 +58,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    @Cacheable(value = "page_users", key ="'page_'+#page", unless="#result == null")
     public PageResult queryUser(Integer page) {
         PageHelper.startPage(page,5);
         List<User> list=userMapper.getUser();

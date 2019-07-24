@@ -1,8 +1,11 @@
 package com.example.demo.utils;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class PageResult {
+public class PageResult implements Serializable {
+
+    private static final long serialVersionUID = 2506641375790979565L;
     private int page;            // 当前页数
     private int total;            // 总页数
     private long records;        // 总记录数

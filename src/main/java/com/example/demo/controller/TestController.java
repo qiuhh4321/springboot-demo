@@ -1,13 +1,15 @@
 package com.example.demo.controller;
 
-import com.example.demo.entity.Upwd;
 import com.example.demo.entity.User;
 import com.example.demo.service.UserService;
 import com.example.demo.utils.JSONResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -22,6 +24,11 @@ public class TestController {
     @Autowired
     private RedisTemplate redisTemplate;
 
+
+    @GetMapping()
+    public void usernameAndPassword(String username,String password){
+
+    }
 
     @PostMapping("/test")
     public void getarray(String str)throws Exception{
@@ -81,8 +88,7 @@ public class TestController {
 
 
     @RequestMapping("/page")
-    public JSONResult test4(Integer page, @RequestBody Upwd upwd){
-        System.out.println(upwd);
+    public JSONResult test4(Integer page){
         if(page==null)
             page=1;
         return JSONResult.ok(userService.queryUser(page));

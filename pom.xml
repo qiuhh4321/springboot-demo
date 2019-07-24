@@ -35,6 +35,12 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid</artifactId>
+			<version>1.1.10</version>
+		</dependency>
 		<!--&lt;!&ndash;&lt;!&ndash;spring-boot-devtools 热启动依赖包&ndash;&gt;&ndash;&gt;-->
 		<!--<dependency>-->
 			<!--<groupId>org.springframework.boot</groupId>-->

@@ -11,13 +11,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class RedisDemo {
-   private static String host="10.28.37.100";
+   private static String host="39.107.248.218";
     private static int port=6379;
     public static void main(String[] args){
         JedisPoolConfig poolConfig=new JedisPoolConfig();
         poolConfig.setMaxIdle(5);
 
-        JedisPool pool=new JedisPool(poolConfig,"10.28.37.100",6379);
+        JedisPool pool=new JedisPool(poolConfig,"39.107.248.218",6379);
 
         Jedis jedis=pool.getResource();
         System.out.println(jedis.ping());
