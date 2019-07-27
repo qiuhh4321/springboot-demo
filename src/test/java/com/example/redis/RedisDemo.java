@@ -1,13 +1,11 @@
 package com.example.redis;
 
-import com.example.demo.entity.User;
 import com.example.demo.utils.RedisPoolUtil;
 import org.junit.Test;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class RedisDemo {
@@ -17,7 +15,7 @@ public class RedisDemo {
         JedisPoolConfig poolConfig=new JedisPoolConfig();
         poolConfig.setMaxIdle(5);
 
-        JedisPool pool=new JedisPool(poolConfig,"39.107.248.218",6379);
+        JedisPool pool=new JedisPool(poolConfig,"39.107.248.218",6379,10000,"123456");
 
         Jedis jedis=pool.getResource();
         System.out.println(jedis.ping());
@@ -65,29 +63,7 @@ public class RedisDemo {
         }
     }
 
-    @Test
-    public void t4(){
-        Jedis jedis=RedisPoolUtil.getJedis();
-        Integer id=1;
-        String key= User.getKetName()+id;//
-        if(jedis.exists(key)){
-            User user=new User();
-            Map<String,String> hash=jedis.hgetAll(key);
-            user.setId(Integer.parseInt(hash.get("id")));
-            user.setName(hash.get("name"));
-            user.setAge(hash.get("age"));
-            System.out.println("redis:"+user.toString());
-        }else{
-            User user=new User();
-            user.setId(id);user.setAge("22");user.setName("李俊");
-            Map<String,String> hash=new HashMap<String, String>();
-            hash.put("id",user.getId()+"");
-            hash.put("name",user.getName());
-            hash.put("age",user.getAge());
-            jedis.hmset(key,hash);
-            System.out.println("数据库查询"+user.toString());
-        }
-    }
+
 
 
 }

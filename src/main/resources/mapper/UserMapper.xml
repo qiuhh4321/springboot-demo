@@ -6,6 +6,7 @@
         <result column="id" jdbcType="INTEGER" property="id" />
         <result column="NAME" jdbcType="VARCHAR" property="name" />
         <result column="age" jdbcType="VARCHAR" property="age" />
+        <result column="password" jdbcType="VARCHAR" property="password"/>
     </resultMap>
 
     <select id="getUser" resultMap="BaseResultMap">

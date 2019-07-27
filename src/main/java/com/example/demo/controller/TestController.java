@@ -25,10 +25,10 @@ public class TestController {
     private RedisTemplate redisTemplate;
 
 
-    @GetMapping()
-    public void usernameAndPassword(String username,String password){
-
-    }
+//    @GetMapping()
+//    public void usernameAndPassword(String username,String password){
+//
+//    }
 
     @PostMapping("/test")
     public void getarray(String str)throws Exception{

@@ -7,12 +7,14 @@ import com.example.demo.utils.PageResult;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@CacheConfig(cacheNames = {"myCache"})
 @Service
 public class UserServiceImpl implements UserService{
     @Autowired
@@ -51,14 +53,14 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    @Cacheable(value = "user_details", key ="'users_'+#id", unless="#result == null")
+    @Cacheable(key ="'users_'+#id", unless="#result == null")
     public User login(int id) {
         System.out.println("有请求");
         return userMapper.login(id);
     }
 
     @Override
-    @Cacheable(value = "page_users", key ="'page_'+#page", unless="#result == null")
+    @Cacheable(key ="'page_'+#page", unless="#result == null")
     public PageResult queryUser(Integer page) {
         PageHelper.startPage(page,5);
         List<User> list=userMapper.getUser();

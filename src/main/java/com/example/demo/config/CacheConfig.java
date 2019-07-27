@@ -54,8 +54,8 @@ public class CacheConfig extends CachingConfigurerSupport {
         om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
         jacksonSeial.setObjectMapper(om);
 
-//        // 值采用json序列化
-//        template.setValueSerializer(jacksonSeial);
+        // 值采用json序列化
+        template.setValueSerializer(jacksonSeial);
         //使用StringRedisSerializer来序列化和反序列化redis的key值
         template.setKeySerializer(new StringRedisSerializer());
 
