@@ -23,6 +23,7 @@ public class CacheConfig extends CachingConfigurerSupport {
 
     /**
      * 选择redis作为默认缓存工具
+     *
      * @param redisTemplate
      * @return
      */
@@ -34,6 +35,7 @@ public class CacheConfig extends CachingConfigurerSupport {
 
     /**
      * retemplate相关配置
+     *
      * @param factory
      * @return
      */

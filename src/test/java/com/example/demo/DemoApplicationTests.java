@@ -14,32 +14,31 @@ import java.util.concurrent.TimeUnit;
 @SpringBootTest
 public class DemoApplicationTests {
 
-	@Autowired
-	private StringRedisTemplate stringRedisTemplate;
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
 
-	@Autowired
-	private RedisTemplate redisTemplate;
+    @Autowired
+    private RedisTemplate redisTemplate;
 
-	@Resource
-	private ValueOperations<String,Object> valueOperations;
+    @Resource
+    private ValueOperations<String, Object> valueOperations;
 
-	@Autowired
-	private HashOperations<String, String, Object> hashOperations;
+    @Autowired
+    private HashOperations<String, String, Object> hashOperations;
 
-	@Autowired
-	private ListOperations<String, Object> listOperations;
+    @Autowired
+    private ListOperations<String, Object> listOperations;
 
-	@Autowired
-	private SetOperations<String, Object> setOperations;
+    @Autowired
+    private SetOperations<String, Object> setOperations;
 
-	@Autowired
-	private ZSetOperations<String, Object> zSetOperations;
+    @Autowired
+    private ZSetOperations<String, Object> zSetOperations;
 
-	@Test
-	public void demo1() {
-		redisTemplate.opsForValue().set("liming","sadsad",20, TimeUnit.MINUTES);
-	}
-
+    @Test
+    public void demo1() {
+        redisTemplate.opsForValue().set("liming", "sadsad", 20, TimeUnit.MINUTES);
+    }
 
 
 }
