@@ -1,5 +1,6 @@
 package com.example.demo.mapper;
 
+import com.example.demo.entity.NarMenu;
 import com.example.demo.entity.User;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -8,9 +9,18 @@ import java.util.List;
 
 @Repository
 public interface UserMapper {
-    public List<User> getUser();
+     List<User> getUser();
 
-    public User login(@Param("id") Integer id);
+     User login(@Param("name") String username, @Param("pwd") String password);
 
+     List<User> findAllPage(@Param("before")int before,@Param("after")int after);
+
+     int count();
+
+     int insertOne(User user);
+
+     List<NarMenu> getMenu();
+
+     List<NarMenu> getMenuChildren(Integer id);
 
 }

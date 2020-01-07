@@ -3,9 +3,9 @@
 <mapper namespace="com.example.demo.mapper.UserMapper">
 
     <resultMap id="BaseResultMap" type="com.example.demo.entity.User">
-        <result column="id" jdbcType="INTEGER" property="id" />
-        <result column="NAME" jdbcType="VARCHAR" property="name" />
-        <result column="age" jdbcType="VARCHAR" property="age" />
+        <result column="id" jdbcType="INTEGER" property="id"/>
+        <result column="NAME" jdbcType="VARCHAR" property="name"/>
+        <result column="age" jdbcType="VARCHAR" property="age"/>
         <result column="password" jdbcType="VARCHAR" property="password"/>
     </resultMap>
 
@@ -15,8 +15,30 @@
 
 
     <select id="login" resultMap="BaseResultMap">
-        select * from users where id=#{id}
+        select * from users where NAME =#{name} and password=#{pwd}
     </select>
 
+
+    <select id="findAllPage" resultMap="BaseResultMap">
+        select * from users limit #{before},#{after}
+    </select>
+
+    <select id="count" resultType="java.lang.Integer">
+        select count(*) from users
+    </select>
+
+    <insert id="insertOne" parameterType="com.example.demo.entity.User">
+        insert into users(NAME ,age,password) values (#{name},#{age},#{password})
+    </insert>
+
+    <select id="getMenu" resultType="com.example.demo.entity.NarMenu">
+        select m.menu_id menuId,m.menu_title title,m.menu_address href,m.menu_img icon,m.menu_relation relation
+        from iotp_menu m where m.menu_parent_id=0
+    </select>
+
+    <select id="getMenuChildren" resultType="com.example.demo.entity.NarMenu">
+        select m.menu_id menuId,m.menu_title title,m.menu_address href,m.menu_img icon,m.menu_relation relation
+        from iotp_menu m where m.menu_parent_id=#{id}
+    </select>
 
 </mapper>

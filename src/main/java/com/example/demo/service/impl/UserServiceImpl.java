@@ -1,5 +1,6 @@
 package com.example.demo.service.impl;
 
+import com.example.demo.entity.NarMenu;
 import com.example.demo.entity.User;
 import com.example.demo.mapper.UserMapper;
 import com.example.demo.service.UserService;
@@ -16,56 +17,67 @@ import java.util.List;
 
 @CacheConfig(cacheNames = {"myCache"})
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
-//    @Autowired
+    //    @Autowired
 //    private RedisTemplate<Object,Object> objectRedisTemplate;
 //    @Autowired
 //    private RedisTemplate<String,String> stringRedisTemplate;
     @Autowired
-    private ValueOperations<String,Object> valueOperations;
+    private ValueOperations<String, Object> valueOperations;
 
+
+    @Override
+    public List<NarMenu> getMenu() {
+        List<NarMenu> list=userMapper.getMenu();
+        for(int i=0;i<list.size();i++){
+            if("1".equals(list.get(i).getRelation()))
+                list.get(i).setChildren(userMapper.getMenuChildren(list.get(i).getMenuId()));
+
+        }
+        return list;
+    }
 
     @Override
 //    @Cacheable(value = "user_details", key = "#id", unless="#result == null")
     public List<User> getUser() {
 //        RedisSerializer redisSerializer=new StringRedisSerializer();
 //        objectRedisTemplate.setKeySerializer(redisSerializer);
-        List<User> users= (List<User>)valueOperations.get("allUser");
+        List<User> users = (List<User>) valueOperations.get("allUser");
 
 //        双重检测索
-        if(null==users) {
+        if (null == users) {
             synchronized (this) {
                 users = (List<User>) valueOperations.get("allUser");
                 if (null == users) {
                     users = userMapper.getUser();
                     valueOperations.set("allUser", users);
-                    System.out.println("走数据库");
-                }else {
-                    System.out.println("走redis");
+                    System.out.println("数据库");
+                } else {
+                    System.out.println("redis");
                 }
             }
-        }else {
-            System.out.println("走redis");
+        } else {
+            System.out.println("redis");
         }
         return users;
     }
 
     @Override
-    @Cacheable(key ="'users_'+#id", unless="#result == null")
-    public User login(int id) {
+    @Cacheable(key = "'users_'+#username", unless = "#result == null")
+    public User login(String username, String password) {
         System.out.println("有请求");
-        return userMapper.login(id);
+        return userMapper.login(username, password);
     }
 
     @Override
-    @Cacheable(key ="'page_'+#page", unless="#result == null")
+    @Cacheable(key = "'page_'+#page", unless = "#result == null")
     public PageResult queryUser(Integer page) {
-        PageHelper.startPage(page,5);
-        List<User> list=userMapper.getUser();
+        PageHelper.startPage(page, 5);
+        List<User> list = userMapper.getUser();
         PageInfo<User> pageList = new PageInfo<>(list);
-        PageResult pageResult=new PageResult();
+        PageResult pageResult = new PageResult();
         pageResult.setPage(page);
         pageResult.setTotal(pageList.getPages());
         pageResult.setRows(list);
@@ -90,6 +102,21 @@ public class UserServiceImpl implements UserService{
     @Override
     public User Login(String username) {
         return null;
+    }
+
+    @Override
+    public List<User> findAllPage(int before, int after) {
+        return userMapper.findAllPage(before,after);
+    }
+
+    @Override
+    public int count() {
+        return userMapper.count();
+    }
+
+    @Override
+    public int insertOne(User user) {
+        return userMapper.insertOne(user);
     }
 
 //    @Override
@@ -130,7 +157,6 @@ public class UserServiceImpl implements UserService{
 //        }
 //        return map;
 //    }
-
 
 
 }

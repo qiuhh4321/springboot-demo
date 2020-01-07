@@ -17,7 +17,7 @@ public class UserServiceTest {
     private UserMapper userMapper;
 
     @Autowired
-    private RedisTemplate<String,String> redisTemplate;
+    private RedisTemplate<String, String> redisTemplate;
 //    @Test
 //    public void queryUser(){
 //        ExecutorService executorService = Executors.newFixedThreadPool(5);
@@ -32,14 +32,19 @@ public class UserServiceTest {
 //    }
 
     @Test
-    public void t1(){
-        System.out.println(userMapper.login(1).toString());
+    public void t1() {
+
     }
 
     @Test
-    public void redis(){
-        System.out.println();
-        redisTemplate.opsForValue().get("users_1");
+    public void redis() {
+       int i=150;
+       Integer d=150;
+       Integer f=new Integer(150);
+        System.out.println(d==f);
+        System.out.println(i==d);
+
+        System.out.println(i==f);
     }
 
 //    @Test

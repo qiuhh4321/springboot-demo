@@ -1,8 +1,8 @@
 package com.example.demo.entity;
 
 public class Upwd {
-   private String username;
-   private String password;
+    private String username;
+    private String password;
 
     public String getUsername() {
         return username;
