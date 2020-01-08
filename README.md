@@ -1,3 +1,3 @@
 # springboot-demo
 spring
-修改修改，使用jgit的。fetch自动更行
+修改修改，使用jgit的。改为用pull
